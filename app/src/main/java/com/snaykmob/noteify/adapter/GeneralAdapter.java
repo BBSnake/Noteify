@@ -1,6 +1,7 @@
 package com.snaykmob.noteify.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.snaykmob.noteify.R;
-import com.snaykmob.noteify.dto.CategoryDTO;
 import com.snaykmob.noteify.dto.ITableDTO;
-import com.snaykmob.noteify.ui.CategoriesAdapter;
 
 import java.util.List;
 
@@ -58,6 +57,10 @@ public class GeneralAdapter<T extends ITableDTO> extends RecyclerView.Adapter<Ge
 
         TextView textView = viewHolder.itemTextView;
         textView.setText(item.getText());
+        if(item.getCompleted() == 1)
+            textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        else
+            textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
     }
 
     @Override

@@ -16,7 +16,7 @@ public class CategoryInteractor implements ICategoryInteractor {
 
     @Override
     public void create(ICategoryPresenter callback, String name, CategoryDAO categoryDAO) {
-        categoryDAO.createCategory(name);
+        categoryDAO.createCategory(name, 0);
         callback.onSuccessCreate();
     }
 
@@ -24,5 +24,11 @@ public class CategoryInteractor implements ICategoryInteractor {
     public void delete(ICategoryPresenter callback, CategoryDTO category, CategoryDAO categoryDAO) {
         categoryDAO.deleteCategory(category);
         callback.onSuccessDelete();
+    }
+
+    @Override
+    public void update(ICategoryPresenter callback, CategoryDTO category, CategoryDAO categoryDAO) {
+        categoryDAO.updateCategory(category);
+        callback.onSuccessUpdate(category);
     }
 }

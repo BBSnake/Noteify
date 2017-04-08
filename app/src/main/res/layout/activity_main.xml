@@ -10,8 +10,7 @@
         android:id="@+id/categories_recycler_view"
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgroundDark">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -21,9 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        app:srcCompat="@mipmap/ic_add_white_24dp"
         android:src="@mipmap/ic_add_white_24dp"
+        app:backgroundTint="@color/colorSecondary"
         app:layout_anchor="@id/categories_recycler_view"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@mipmap/ic_add_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -16,7 +16,10 @@ import java.util.List;
 public class ItemDAO {
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
-    private String columns[] = {SQLiteHelper.ITEM_COLUMN_ID, SQLiteHelper.ITEM_COLUMN_CATEGORY_ID, SQLiteHelper.ITEM_COLUMN_TEXT};
+    private String columns[] = {SQLiteHelper.ITEM_COLUMN_ID,
+            SQLiteHelper.ITEM_COLUMN_CATEGORY_ID,
+            SQLiteHelper.ITEM_COLUMN_TEXT,
+            SQLiteHelper.ITEM_COLUMN_COMPLETED};
 
     public ItemDAO(Context context) {
         dbHelper = new SQLiteHelper(context);
@@ -30,10 +33,11 @@ public class ItemDAO {
         dbHelper.close();
     }
 
-    public ItemDTO createItem(String name, long categoryId) {
+    public ItemDTO createItem(String name, long categoryId, long completed) {
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.ITEM_COLUMN_CATEGORY_ID, categoryId);
         values.put(SQLiteHelper.ITEM_COLUMN_TEXT, name);
+        values.put(SQLiteHelper.ITEM_COLUMN_COMPLETED, completed);
         long insertId = database.insert(SQLiteHelper.TABLE_ITEM, null,
                 values);
         Cursor cursor = database.query(SQLiteHelper.TABLE_ITEM,
@@ -47,7 +51,6 @@ public class ItemDAO {
 
     public void deleteComment(ItemDTO item) {
         long id = item.getId();
-        System.out.println("Item deleted with id: " + id);
         database.delete(SQLiteHelper.TABLE_ITEM, SQLiteHelper.ITEM_COLUMN_ID + "=?",
                 new String[] {String.valueOf(id)});
     }
@@ -74,6 +77,7 @@ public class ItemDAO {
         item.setId(cursor.getLong(0));
         item.setCategoryId(cursor.getLong(1));
         item.setText(cursor.getString(2));
+        item.setCompleted(cursor.getLong(3));
         return item;
     }
 }

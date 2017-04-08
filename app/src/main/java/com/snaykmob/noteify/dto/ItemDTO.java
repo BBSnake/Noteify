@@ -6,6 +6,7 @@ public class ItemDTO implements ITableDTO {
     private long id;
     private long categoryId;
     private String text;
+    private long completed;
 
     @Override
     public long getId() {
@@ -33,6 +34,16 @@ public class ItemDTO implements ITableDTO {
 
     public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @Override
+    public long getCompleted() {
+        return completed;
+    }
+
+    @Override
+    public void setCompleted(long completed) {
+        this.completed = completed;
     }
 
     @Override

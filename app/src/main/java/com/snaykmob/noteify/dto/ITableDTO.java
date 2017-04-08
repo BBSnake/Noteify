@@ -9,4 +9,7 @@ public interface ITableDTO {
     String getText();
 
     void setText(String text);
+
+    long getCompleted();
+    void setCompleted(long completed);
 }

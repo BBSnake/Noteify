@@ -3,6 +3,7 @@ package com.snaykmob.noteify.dto;
 public class CategoryDTO implements ITableDTO {
     private long id;
     private String text;
+    private long completed;
 
     @Override
     public long getId() {
@@ -22,6 +23,16 @@ public class CategoryDTO implements ITableDTO {
     @Override
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public long getCompleted() {
+        return completed;
+    }
+
+    @Override
+    public void setCompleted(long completed) {
+        this.completed = completed;
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CategoryDAO {
 
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
-    private String columns[] = {SQLiteHelper.CATEGORY_COLUMN_ID, SQLiteHelper.CATEGORY_COLUMN_TEXT};
+    private String columns[] = {SQLiteHelper.CATEGORY_COLUMN_ID, SQLiteHelper.CATEGORY_COLUMN_TEXT, SQLiteHelper.CATEGORY_COLUMN_COMPLETED};
 
     public CategoryDAO(Context context) {
         dbHelper = new SQLiteHelper(context);
@@ -31,9 +31,10 @@ public class CategoryDAO {
         dbHelper.close();
     }
 
-    public CategoryDTO createCategory(String text) {
+    public CategoryDTO createCategory(String text, long completed) {
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.CATEGORY_COLUMN_TEXT, text);
+        values.put(SQLiteHelper.CATEGORY_COLUMN_COMPLETED, completed);
         long insertId = database.insert(SQLiteHelper.TABLE_CATEGORY, null,
                 values);
         Cursor cursor = database.query(SQLiteHelper.TABLE_CATEGORY,
@@ -43,6 +44,13 @@ public class CategoryDAO {
         CategoryDTO newCategory = cursorToCategory(cursor);
         cursor.close();
         return newCategory;
+    }
+
+    public void updateCategory(CategoryDTO category) {
+        long id = category.getId();
+        ContentValues values = new ContentValues();
+        values.put(SQLiteHelper.CATEGORY_COLUMN_COMPLETED, category.getCompleted());
+        database.update(SQLiteHelper.TABLE_CATEGORY, values, SQLiteHelper.CATEGORY_COLUMN_ID + "=?", new String[] {String.valueOf(id)});
     }
 
     public void deleteCategory(CategoryDTO category) {
@@ -74,6 +82,7 @@ public class CategoryDAO {
         CategoryDTO category = new CategoryDTO();
         category.setId(cursor.getLong(0));
         category.setText(cursor.getString(1));
+        category.setCompleted(cursor.getLong(2));
         return category;
     }
 }

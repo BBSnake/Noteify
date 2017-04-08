@@ -9,8 +9,10 @@ public interface ICategoryPresenter {
     void attemptCreate(String name, CategoryDAO categoryDAO);
     void attemptSelect(CategoryDAO categoryDAO);
     void attemptDelete(CategoryDTO category, CategoryDAO categoryDAO);
+    void attemptUpdate(CategoryDTO category, CategoryDAO categoryDAO);
 
     void onSuccessCreate();
     void onSuccessSelect(List<CategoryDTO> items);
     void onSuccessDelete();
+    void onSuccessUpdate(CategoryDTO category);
 }

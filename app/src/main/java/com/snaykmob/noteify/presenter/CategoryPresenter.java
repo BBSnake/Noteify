@@ -37,6 +37,11 @@ public class CategoryPresenter implements ICategoryPresenter {
     }
 
     @Override
+    public void attemptUpdate(CategoryDTO category, CategoryDAO categoryDAO) {
+        interactor.update(this, category, categoryDAO);
+    }
+
+    @Override
     public void onSuccessCreate() {
         view.onSuccessCreate();
     }
@@ -49,5 +54,10 @@ public class CategoryPresenter implements ICategoryPresenter {
     @Override
     public void onSuccessDelete() {
         view.onSuccessDelete();
+    }
+
+    @Override
+    public void onSuccessUpdate(CategoryDTO category) {
+        view.onSuccessUpdate(category.getCompleted());
     }
 }
