@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Noteify</string>
+    <string name="unmark_str">Unmarked as completed!</string>
+    <string name="mark_str">Marked as completed!</string>
+    <string name="cat_created">Category created!</string>
+    <string name="cat_deleted">Category deleted!</string>
+    <string name="cancel">Cancel</string>
+    <string name="cat_not_empty">Category name cannot be empty!</string>
+    <string name="ok">OK</string>
+    <string name="new_cat">New category</string>
+    <string name="cat_name">Category name:</string>
+    <string name="cat_q_delete">Do you want to delete category</string>
+    <string name="cat_delete">Delete category</string>
 </resources>

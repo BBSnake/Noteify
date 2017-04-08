@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.crypto.spec.IvParameterSpec;
 
-public class CategoryPresenter implements ICategoryPresenter {
+public class CategoryPresenter implements IPresenter<CategoryDTO, CategoryDAO> {
 
     private IView<CategoryDTO> view;
     private CategoryInteractor interactor;

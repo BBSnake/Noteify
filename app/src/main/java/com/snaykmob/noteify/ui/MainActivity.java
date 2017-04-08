@@ -1,8 +1,7 @@
 package com.snaykmob.noteify.ui;
 
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.graphics.Paint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -10,18 +9,21 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.snaykmob.noteify.R;
+import com.snaykmob.noteify.Utils;
+import com.snaykmob.noteify.adapter.ClickListener;
 import com.snaykmob.noteify.adapter.GeneralAdapter;
+import com.snaykmob.noteify.adapter.RvTouchListener;
 import com.snaykmob.noteify.dao.CategoryDAO;
 import com.snaykmob.noteify.dto.CategoryDTO;
 import com.snaykmob.noteify.presenter.CategoryPresenter;
 import com.snaykmob.noteify.view.IView;
 
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -71,6 +73,22 @@ public class MainActivity extends NoteifyActivity implements IView<CategoryDTO> 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
+        mRecyclerView.addOnItemTouchListener(new RvTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                CategoryDTO item = items.get(position);
+                Intent intent = new Intent(getApplicationContext(), ItemsActivity.class);
+                intent.putExtra(Utils.CAT_TITLE, item.getText());
+                intent.putExtra(Utils.CAT_ID, item.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
         presenter.attemptSelect(categoryDAO);
         mAdapter = new GeneralAdapter<CategoryDTO>(this, items);
         mRecyclerView.setAdapter(mAdapter);
@@ -98,14 +116,14 @@ public class MainActivity extends NoteifyActivity implements IView<CategoryDTO> 
             if(direction == ItemTouchHelper.RIGHT) {
                 final CategoryDTO item = items.get(position);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
-                builder.setMessage("Do you want to delete category \""+item.getText()+"\"?").setTitle("Delete category")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setMessage(getString(R.string.cat_q_delete)+" \""+item.getText()+"\"?").setTitle(R.string.cat_delete)
+                        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 presenter.attemptDelete(item,categoryDAO);
                                 dialog.dismiss();
                             }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -118,21 +136,23 @@ public class MainActivity extends NoteifyActivity implements IView<CategoryDTO> 
 
     @OnClick(R.id.fab)
     public void addCategory() {
-        final EditText categoryName = new EditText(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogLayout = inflater.inflate(R.layout.dialog_layout,null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert);
-        builder.setMessage("Category name:").setTitle("New category")
-                .setView(categoryName).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.cat_name).setTitle(R.string.new_cat)
+                .setView(dialogLayout).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                EditText categoryName = (EditText) dialogLayout.findViewById(R.id.dialog_et);
                 String categoryText = categoryName.getText().toString();
-                if(!categoryText.equals("")) {
+                if(categoryText.length() > 0) {
                     presenter.attemptCreate(categoryText,categoryDAO);
                     dialog.dismiss();
                 }
                 else
-                    categoryName.setError("Field cannot be empty!");
+                    showSnackbar(fab, getString(R.string.cat_not_empty), ContextCompat.getColor(MainActivity.this, R.color.colorSecondaryDark));
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -147,14 +167,14 @@ public class MainActivity extends NoteifyActivity implements IView<CategoryDTO> 
 
     @Override
     public void onSuccessDelete() {
-        showSnackbar(fab, "Category deleted!", ContextCompat.getColor(this, R.color.colorPrimary));
+        showSnackbar(fab, getString(R.string.cat_deleted), ContextCompat.getColor(this, R.color.colorPrimary));
         presenter.attemptSelect(categoryDAO);
         mAdapter.refresh(items);
     }
 
     @Override
     public void onSuccessCreate() {
-        showSnackbar(fab, "Category created!", ContextCompat.getColor(this, R.color.colorPrimary));
+        showSnackbar(fab, getString(R.string.cat_created), ContextCompat.getColor(this, R.color.colorPrimary));
         presenter.attemptSelect(categoryDAO);
         mAdapter.refresh(items);
     }
@@ -162,9 +182,9 @@ public class MainActivity extends NoteifyActivity implements IView<CategoryDTO> 
     @Override
     public void onSuccessUpdate(long completed) {
         if(completed == 1)
-            showSnackbar(fab, "Marked as completed!", ContextCompat.getColor(this,R.color.colorPrimary));
+            showSnackbar(fab, getString(R.string.mark_str), ContextCompat.getColor(this,R.color.colorPrimary));
         else
-            showSnackbar(fab, "Unmarked as completed!", ContextCompat.getColor(this,R.color.colorPrimary));
+            showSnackbar(fab, getString(R.string.unmark_str), ContextCompat.getColor(this,R.color.colorPrimary));
         presenter.attemptSelect(categoryDAO);
         mAdapter.refresh(items);
     }
