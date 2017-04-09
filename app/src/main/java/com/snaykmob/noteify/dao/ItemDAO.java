@@ -49,17 +49,24 @@ public class ItemDAO {
         return newItem;
     }
 
-    public void deleteComment(ItemDTO item) {
+    public void deleteItem(ItemDTO item) {
         long id = item.getId();
         database.delete(SQLiteHelper.TABLE_ITEM, SQLiteHelper.ITEM_COLUMN_ID + "=?",
                 new String[] {String.valueOf(id)});
     }
 
+    public void updateItem(ItemDTO item) {
+        long id = item.getId();
+        ContentValues values = new ContentValues();
+        values.put(SQLiteHelper.ITEM_COLUMN_COMPLETED, item.getCompleted());
+        database.update(SQLiteHelper.TABLE_ITEM, values, SQLiteHelper.ITEM_COLUMN_ID + "=?", new String[] {String.valueOf(id)});
+    }
+
     public List<ItemDTO> getItems(long categoryId) {
-        List<ItemDTO> items = new ArrayList<ItemDTO>();
+        List<ItemDTO> items = new ArrayList<>();
 
         Cursor cursor = database.query(SQLiteHelper.TABLE_ITEM,
-                columns, "id=?", new String[] {String.valueOf(categoryId)}, null, null, null);
+                columns, SQLiteHelper.ITEM_COLUMN_CATEGORY_ID + "=?", new String[] {String.valueOf(categoryId)}, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

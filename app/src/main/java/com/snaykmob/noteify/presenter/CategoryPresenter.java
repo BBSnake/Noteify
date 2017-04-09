@@ -21,12 +21,10 @@ public class CategoryPresenter implements IPresenter<CategoryDTO, CategoryDAO> {
         interactor = new CategoryInteractor();
     }
 
-    @Override
     public void attemptCreate(String name, CategoryDAO categoryDAO) {
         interactor.create(this,name,categoryDAO);
     }
 
-    @Override
     public void attemptSelect(CategoryDAO categoryDAO) {
         interactor.select(this,categoryDAO);
     }
