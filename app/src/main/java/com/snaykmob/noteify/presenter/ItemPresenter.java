@@ -34,6 +34,14 @@ public class ItemPresenter implements IPresenter<ItemDTO, ItemDAO> {
         interactor.update(this, dto, dao);
     }
 
+    public void attemptDeleteAll(long categoryId, ItemDAO dao) {
+        interactor.deleteAll(this, categoryId, dao);
+    }
+
+    public void attemptDeleteAllMarked(long categoryId, ItemDAO dao) {
+        interactor.deleteAllMarked(this,categoryId, dao);
+    }
+
     @Override
     public void onSuccessCreate() {
         view.onSuccessCreate();
@@ -52,5 +60,15 @@ public class ItemPresenter implements IPresenter<ItemDTO, ItemDAO> {
     @Override
     public void onSuccessUpdate(ItemDTO dto) {
         view.onSuccessUpdate(dto.getCompleted());
+    }
+
+    @Override
+    public void onSuccessDeleteAll() {
+        view.onSuccessDeleteAll();
+    }
+
+    @Override
+    public void onSuccessDeleteAllMark() {
+        view.onSuccessDeleteAllMark();
     }
 }

@@ -16,11 +16,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GeneralAdapter<T extends ITableDTO> extends RecyclerView.Adapter<GeneralAdapter.ViewHolder>{
+public class GeneralAdapter<T extends ITableDTO> extends RecyclerView.Adapter<GeneralAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.item_tv) public TextView itemTextView;
+        @BindView(R.id.item_tv)
+        public TextView itemTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -46,7 +47,7 @@ public class GeneralAdapter<T extends ITableDTO> extends RecyclerView.Adapter<Ge
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View itemView = inflater.inflate(R.layout.item_layout, parent,false);
+        View itemView = inflater.inflate(R.layout.item_layout, parent, false);
 
         return new GeneralAdapter.ViewHolder(itemView);
     }
@@ -57,7 +58,7 @@ public class GeneralAdapter<T extends ITableDTO> extends RecyclerView.Adapter<Ge
 
         TextView textView = viewHolder.itemTextView;
         textView.setText(item.getText());
-        if(item.getCompleted() == 1)
+        if (item.getCompleted() == 1)
             textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         else
             textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
@@ -69,11 +70,10 @@ public class GeneralAdapter<T extends ITableDTO> extends RecyclerView.Adapter<Ge
     }
 
     public void refresh(List<T> list) {
-        if(mItems != null) {
+        if (mItems != null) {
             mItems.clear();
             mItems.addAll(list);
-        }
-        else
+        } else
             mItems = list;
         notifyDataSetChanged();
     }

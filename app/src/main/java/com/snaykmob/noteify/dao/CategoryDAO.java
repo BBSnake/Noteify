@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.snaykmob.noteify.database.SQLiteHelper;
 import com.snaykmob.noteify.dto.CategoryDTO;
@@ -50,15 +49,21 @@ public class CategoryDAO {
         long id = category.getId();
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.CATEGORY_COLUMN_COMPLETED, category.getCompleted());
-        database.update(SQLiteHelper.TABLE_CATEGORY, values, SQLiteHelper.CATEGORY_COLUMN_ID + "=?", new String[] {String.valueOf(id)});
+        database.update(SQLiteHelper.TABLE_CATEGORY, values, SQLiteHelper.CATEGORY_COLUMN_ID + "=?", new String[]{String.valueOf(id)});
     }
 
     public void deleteCategory(CategoryDTO category) {
         long id = category.getId();
-        database.delete(SQLiteHelper.TABLE_ITEM, SQLiteHelper.ITEM_COLUMN_CATEGORY_ID + "=?",
-                new String[] {String.valueOf(id)});
         database.delete(SQLiteHelper.TABLE_CATEGORY, SQLiteHelper.CATEGORY_COLUMN_ID + "=?",
-                new String[] {String.valueOf(id)});
+                new String[]{String.valueOf(id)});
+    }
+
+    public void deleteAllCategories() {
+        database.delete(SQLiteHelper.TABLE_CATEGORY, null, null);
+    }
+
+    public void deleteAllMarkedCategories() {
+        database.delete(SQLiteHelper.TABLE_CATEGORY, SQLiteHelper.CATEGORY_COLUMN_COMPLETED + "=?", new String[]{String.valueOf(1)});
     }
 
     public List<CategoryDTO> getAllCategories() {

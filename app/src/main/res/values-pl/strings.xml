@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Noteify</string>
+    <string name="cancel">Anuluj</string>
+    <string name="cat_all_del_msg">Usunięto wszystkie kategorie!</string>
+    <string name="cat_all_mark">Oznaczono wszystkie kategorie jako zakończone!</string>
+    <string name="cat_all_mark_del_msg">Usunięto wszystkie zakończone kategorie!</string>
+    <string name="cat_created">Utworzono kategorię!</string>
+    <string name="cat_del_all_mark_q">Czy chcesz usunąć wszystkie zakończone kategorie?</string>
+    <string name="cat_del_all_q">Czy chcesz usunąć wszystkie kategorie?</string>
+    <string name="cat_delete">Usuń kategorię</string>
+    <string name="cat_deleted">Usunięto kategorię!</string>
+    <string name="cat_name">Nazwa kategorii:</string>
+    <string name="cat_not_empty">Nazwa kategorii nie może być pusta!</string>
+    <string name="cat_q_delete">Czy chcesz usunąć kategorię</string>
+    <string name="delete_all">Usuń wszystkie</string>
+    <string name="delete_all_marked">Usuń wszystkie zakończone</string>
+    <string name="item_all_deleted">Usunięto wszystkie wpisy!</string>
+    <string name="item_all_mark_deleted">Usunięto wszystkie zakończone wpisy!</string>
+    <string name="item_created">Utworzono wpis!</string>
+    <string name="item_del_all_mark_q">Czy chcesz usunąć wszystkie zakończone wpisy?</string>
+    <string name="item_del_all_q">Czy chcesz usunąć wszystkie wpisy?</string>
+    <string name="item_delete">Usuń wpis</string>
+    <string name="item_deleted">Usunięto wpis!</string>
+    <string name="item_name">Nazwa wpisu:</string>
+    <string name="item_not_empty">Nazwa wpisu nie może być pusta!</string>
+    <string name="item_q_delete">Czy chcesz usunąć wpis</string>
+    <string name="mark_all">Oznacz wszystkie</string>
+    <string name="mark_str">Oznaczono jako zakończone!</string>
+    <string name="new_cat">Nowa kategoria</string>
+    <string name="new_item">Nowy wpis</string>
+    <string name="unmark_str">Oznaczono jako trwające!</string>
+</resources>

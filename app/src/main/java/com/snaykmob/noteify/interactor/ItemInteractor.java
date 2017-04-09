@@ -29,4 +29,14 @@ public class ItemInteractor implements IInteractor<ItemDTO, ItemDAO> {
         dao.updateItem(dto);
         callback.onSuccessUpdate(dto);
     }
+
+    public void deleteAll(IPresenter<ItemDTO, ItemDAO> callback, long categoryId, ItemDAO dao) {
+        dao.deleteAllItems(categoryId);
+        callback.onSuccessDeleteAll();
+    }
+
+    public void deleteAllMarked(IPresenter<ItemDTO, ItemDAO> callback, long categoryId, ItemDAO dao) {
+        dao.deleteAllMarkedItems(categoryId);
+        callback.onSuccessDeleteAllMark();
+    }
 }

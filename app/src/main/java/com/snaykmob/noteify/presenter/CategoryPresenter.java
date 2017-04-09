@@ -1,15 +1,11 @@
 package com.snaykmob.noteify.presenter;
 
-import android.content.Context;
-
 import com.snaykmob.noteify.dao.CategoryDAO;
 import com.snaykmob.noteify.dto.CategoryDTO;
 import com.snaykmob.noteify.interactor.CategoryInteractor;
 import com.snaykmob.noteify.view.IView;
 
 import java.util.List;
-
-import javax.crypto.spec.IvParameterSpec;
 
 public class CategoryPresenter implements IPresenter<CategoryDTO, CategoryDAO> {
 
@@ -22,11 +18,11 @@ public class CategoryPresenter implements IPresenter<CategoryDTO, CategoryDAO> {
     }
 
     public void attemptCreate(String name, CategoryDAO categoryDAO) {
-        interactor.create(this,name,categoryDAO);
+        interactor.create(this, name, categoryDAO);
     }
 
     public void attemptSelect(CategoryDAO categoryDAO) {
-        interactor.select(this,categoryDAO);
+        interactor.select(this, categoryDAO);
     }
 
     @Override
@@ -37,6 +33,14 @@ public class CategoryPresenter implements IPresenter<CategoryDTO, CategoryDAO> {
     @Override
     public void attemptUpdate(CategoryDTO category, CategoryDAO categoryDAO) {
         interactor.update(this, category, categoryDAO);
+    }
+
+    public void attemptDeleteAll(CategoryDAO dao) {
+        interactor.deleteAll(this, dao);
+    }
+
+    public void attemptDeleteAllMarked(CategoryDAO dao) {
+        interactor.deleteAllMarked(this, dao);
     }
 
     @Override
@@ -57,5 +61,15 @@ public class CategoryPresenter implements IPresenter<CategoryDTO, CategoryDAO> {
     @Override
     public void onSuccessUpdate(CategoryDTO category) {
         view.onSuccessUpdate(category.getCompleted());
+    }
+
+    @Override
+    public void onSuccessDeleteAll() {
+        view.onSuccessDeleteAll();
+    }
+
+    @Override
+    public void onSuccessDeleteAllMark() {
+        view.onSuccessDeleteAllMark();
     }
 }

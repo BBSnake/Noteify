@@ -29,4 +29,14 @@ public class CategoryInteractor implements IInteractor<CategoryDTO, CategoryDAO>
         categoryDAO.updateCategory(category);
         callback.onSuccessUpdate(category);
     }
+
+    public void deleteAll(IPresenter<CategoryDTO, CategoryDAO> callback, CategoryDAO categoryDAO) {
+        categoryDAO.deleteAllCategories();
+        callback.onSuccessDeleteAll();
+    }
+
+    public void deleteAllMarked(IPresenter<CategoryDTO, CategoryDAO> callback, CategoryDAO categoryDAO) {
+        categoryDAO.deleteAllMarkedCategories();
+        callback.onSuccessDeleteAllMark();
+    }
 }

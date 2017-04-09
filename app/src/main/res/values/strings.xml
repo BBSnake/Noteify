@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Noteify</string>
-    <string name="unmark_str">Unmarked as completed!</string>
+    <string name="app_name" translatable="false">Noteify</string>
+    <string name="unmark_str">Marked as in progress!</string>
     <string name="mark_str">Marked as completed!</string>
     <string name="cat_created">Category created!</string>
     <string name="cat_deleted">Category deleted!</string>
     <string name="cancel">Cancel</string>
     <string name="cat_not_empty">Category name cannot be empty!</string>
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="new_cat">New category</string>
     <string name="cat_name">Category name:</string>
     <string name="cat_q_delete">Do you want to delete category</string>
@@ -18,4 +18,16 @@
     <string name="item_not_empty">Item name cannot be empty!</string>
     <string name="item_deleted">Item deleted!</string>
     <string name="item_created">Item created!</string>
+    <string name="delete_all">Delete all</string>
+    <string name="delete_all_marked">Delete all completed</string>
+    <string name="mark_all">Mark all</string>
+    <string name="cat_all_del_msg">Deleted all categories!</string>
+    <string name="cat_all_mark_del_msg">Deleted all completed categories!</string>
+    <string name="cat_all_mark">Marked all categories as completed!</string>
+    <string name="item_all_deleted">Deleted all items!</string>
+    <string name="item_all_mark_deleted">Deleted all completed items!</string>
+    <string name="cat_del_all_q">Do you want to delete all categories?</string>
+    <string name="cat_del_all_mark_q">Do you want to delete all completed categories?</string>
+    <string name="item_del_all_q">Do you want to delete all items?</string>
+    <string name="item_del_all_mark_q">Do you want to delete all completed items?</string>
 </resources>

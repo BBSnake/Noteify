@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.snaykmob.noteify.database.SQLiteHelper;
-import com.snaykmob.noteify.dto.CategoryDTO;
 import com.snaykmob.noteify.dto.ItemDTO;
 
 import java.util.ArrayList;
@@ -52,21 +51,30 @@ public class ItemDAO {
     public void deleteItem(ItemDTO item) {
         long id = item.getId();
         database.delete(SQLiteHelper.TABLE_ITEM, SQLiteHelper.ITEM_COLUMN_ID + "=?",
-                new String[] {String.valueOf(id)});
+                new String[]{String.valueOf(id)});
+    }
+
+    public void deleteAllItems(long categoryId) {
+        database.delete(SQLiteHelper.TABLE_ITEM, SQLiteHelper.ITEM_COLUMN_CATEGORY_ID + "=?", new String[]{String.valueOf(categoryId)});
+    }
+
+    public void deleteAllMarkedItems(long categoryId) {
+        database.delete(SQLiteHelper.TABLE_ITEM, SQLiteHelper.ITEM_COLUMN_CATEGORY_ID + "=? and " + SQLiteHelper.ITEM_COLUMN_COMPLETED + "=?",
+                new String[]{String.valueOf(categoryId), String.valueOf(1)});
     }
 
     public void updateItem(ItemDTO item) {
         long id = item.getId();
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.ITEM_COLUMN_COMPLETED, item.getCompleted());
-        database.update(SQLiteHelper.TABLE_ITEM, values, SQLiteHelper.ITEM_COLUMN_ID + "=?", new String[] {String.valueOf(id)});
+        database.update(SQLiteHelper.TABLE_ITEM, values, SQLiteHelper.ITEM_COLUMN_ID + "=?", new String[]{String.valueOf(id)});
     }
 
     public List<ItemDTO> getItems(long categoryId) {
         List<ItemDTO> items = new ArrayList<>();
 
         Cursor cursor = database.query(SQLiteHelper.TABLE_ITEM,
-                columns, SQLiteHelper.ITEM_COLUMN_CATEGORY_ID + "=?", new String[] {String.valueOf(categoryId)}, null, null, null);
+                columns, SQLiteHelper.ITEM_COLUMN_CATEGORY_ID + "=?", new String[]{String.valueOf(categoryId)}, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

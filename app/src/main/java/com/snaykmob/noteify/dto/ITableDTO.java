@@ -11,5 +11,6 @@ public interface ITableDTO {
     void setText(String text);
 
     long getCompleted();
+
     void setCompleted(long completed);
 }
